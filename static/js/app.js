@@ -10,25 +10,12 @@ var searchViewModel = {
     value:ko.observable("0"),
     query:ko.observable("")
 };
-var crossHash = {// a simple wrapper to get the method setHashUnrouted
-    skip:false,
-    parse:function(val){
-        // if skip is set to true, then the updated hash should not be routed
-        if (this.skip){ this.skip = false; return; }
-        crossroads.parse(val);
-    },
-    setHash:hasher.setHash,
-    setHashUnrouted:function(hash){
-        this.skip = true;
-        hasher.setHash(hash);
-    }
-};
 
 var content = {
     renderTemplate:function(templ,vm){
-        ko.cleanNode($("#content")[0]);
+        ko.cleanNode(document.getElementById("content"));
         ko.renderTemplate(templ, 
-         vm, {  }, $("#content")[0], "replaceChildren");
+         vm, {  }, document.getElementById("content"), "replaceChildren");
     }
 };
 
@@ -75,32 +62,26 @@ var searchConductor=new (function(){
 /* ------------------------------------------------------------------------*
 * Setup the menu:
 ** ------------------------------------------------------------------------*/
-
-$(function(){
+window.addEventListener("load",function(){
     var menuModel = {
         search: function(){ searchConductor.view("Enter something"); },
         hello: helloConductor.view
     };
-    ko.applyBindings(menuModel,$("#menu")[0]);
-});
+    ko.applyBindings(menuModel,document.getElementById("menu"));
+},false);
 
 /* ------------------------------------------------------------------------*
 * Setup routing:
 ** ------------------------------------------------------------------------*/
 
 //setup crossroads
-crossroads.addRoute('search/{query}', searchConductor.handle);
-crossroads.addRoute('hello', helloConductor.handle);
+crossHash.addRoute('search/{query}', searchConductor.handle);
+crossHash.addRoute('hello', helloConductor.handle);
 //setup hasher
-var DEFAULT_HASH = 'hello';
+crossHash.defaults('hello');
 //only required if you want to set a default value
-if(! hasher.getHash()){
-    hasher.setHash(DEFAULT_HASH);
-}
 
-//setup hasher
-hasher.initialized.add(crossHash.parse, crossHash); //parse initial hash
-hasher.changed.add(crossHash.parse, crossHash); //parse hash changes
-hasher.init(); //start listening for history change
+//setup 
+crossHash.init();
 
 })();
