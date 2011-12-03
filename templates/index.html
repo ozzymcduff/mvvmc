@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<!-- 
+app.js
+
+Created by Oskar Gewalli on 2011-12-02.
+License: MIT (http://www.opensource.org/licenses/mit-license.php)
+-->
+	<head>
+		<title>
+			Hello from the app
+		</title>
+	</head>
+	<body>
+		<div id="content"></div>
+		<div id="menu">
+			<ul>
+				<li>
+					<a href="#" data-bind="click:search">search</a>
+				</li>
+				<li>
+					<a href="#" data-bind="click:hello">hello</a>
+				</li>
+			</ul>
+		</div>
+		
+<script id="helloTmpl" type="text/html">
+Hello! Welcome to the app.
+<p>This is the Hello template rendered inside the content div.
+</p>
+</script>
+
+<script id="searchTmpl" type="text/html">
+<p>This is the search template rendered inside the content div.
+</p>
+<fieldset>
+<legend>Search form</legend>
+	<p>
+		<label for="value">value</label>
+		<input id="value" type="text" data-bind="value:value"></input>
+		When entering something here, the viewmodel will be updated.
+	</p>
+	<p>
+		<label for="unboundvalue">unboundvalue</label>
+		<input id="unboundvalue" type="text"></input>
+	</p>
+	<p>
+		<label for="query">query</label>
+		<input id="query" type="text" data-bind="value:query"></input>
+		When entering something here, the url will be updated. This will not cause the route to trigger 
+		(the unboundvalue field will not be cleared).
+	</p>
+</fieldset>
+</script>
+
+		<script type="text/javascript" src="/static/js/lib/signals.js"></script>
+		<script type="text/javascript" src="/static/js/lib/hasher.js"></script>
+		<script type="text/javascript" src="/static/js/lib/crossroads.js"></script>
+		<script type="text/javascript" src="/static/js/lib/jquery-1.7.1.js"></script>
+		<script type="text/javascript" src="/static/js/lib/knockout-1.3.0beta.debug.js"></script>
+		<script type="text/javascript" src="/static/js/app.js"></script>
+	</body>
+</html>
