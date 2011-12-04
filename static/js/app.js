@@ -78,7 +78,7 @@ window.addEventListener("load",function(){
 crossHash.addRoute('search/{query}', searchConductor.handle);
 crossHash.addRoute('hello', helloConductor.handle);
 //setup hasher
-crossHash.defaults('hello');
+//crossHash.defaults('hello');
 //only required if you want to set a default value
 
 //setup 
